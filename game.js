@@ -60,7 +60,7 @@ document.addEventListener('DOMContentLoaded', () => {
             alert('Blown the FUCK UP')
         }
     }
-    click();
+    
 
 
 })
