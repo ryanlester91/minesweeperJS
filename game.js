@@ -20,7 +20,9 @@ document.addEventListener('DOMContentLoaded', () => {
             squares.push(square)
 
             //normal click
-            square.addEventListener()
+            square.addEventListener('click', function (e) {
+                this.click(square)
+            })
         }
 
         //add numbers
@@ -51,6 +53,14 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     createBoard();
+
+    //click on square actions
+    function click(square) {
+        if(square.classList.contains('bomb')) {
+            alert('Blown the FUCK UP')
+        }
+    }
+    click();
 
 
 })
