@@ -21,7 +21,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             //normal click
             square.addEventListener('click', function (e) {
-                this.click(square)
+                click(square);
             })
         }
 
@@ -60,6 +60,7 @@ document.addEventListener('DOMContentLoaded', () => {
             alert('Blown the FUCK UP')
         }
     }
+    
     
 
 
