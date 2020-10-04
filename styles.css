@@ -1,8 +1,20 @@
+body {
+    background-color: tan;
+}
+
+h1 {
+    font-family: 'Orbitron', sans-serif;
+    letter-spacing: 1em;
+    margin-left: 70px;
+}
+
 .grid {
     height: 400px;
     width: 400px;
     display: flex;
     flex-wrap: wrap;
+    margin-top: 100px;
+    margin-left: 100px;
     background-color: grey;
 }
 
