@@ -2,6 +2,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const grid = document.querySelector('.grid')
     let width = 10
     let bombAmount = 20
+    let flags = 0
     let squares = []
     let isGameOver = false
 
@@ -24,6 +25,13 @@ document.addEventListener('DOMContentLoaded', () => {
             square.addEventListener('click', function (e) {
                 click(square);
             })
+
+            //control and left click
+            square.oncontextmenu = function(e) {
+                e.preventDefault(
+                addFlag(square)
+                )
+            }
         }
 
         //add numbers
@@ -55,6 +63,23 @@ document.addEventListener('DOMContentLoaded', () => {
 
     createBoard();
 
+    //add flag with right click
+    function addFlag(square) {
+        if (isGameOver) return
+        if (!square.classList.contains('checked') && (flags < bombAmount)) {
+            if (!square.classList.contains('flag')) {
+                square.classList.add('flag')
+                square.innerHTML = '|>'
+                flags++
+                checkForWin()
+            } else {
+                square.classList.remove('flag')
+                square.innerHTML = ''
+                flags--
+            }
+        }
+    }
+
     //click on square actions
     function click(square) {
         let currentId = square.id
@@ -79,7 +104,7 @@ document.addEventListener('DOMContentLoaded', () => {
     
 
 //check neighboring squares once square is clicked
-function checkSquare(squares, currentId) {
+function checkSquare(square, currentId) {
     const isLeftEdge = (currentId % width === 0)
     const isRightEdge = (currentId % width === width - 1)
     //let bombSquare = square.classList.contains("bomb")
@@ -146,3 +171,18 @@ squares.forEach(square => {
 
 
 })
+
+//check for win
+function checkForWin() {
+    let matches = 0
+
+    for (let i = 0; i < squares.length; i++) {
+        if(squares[i].classList.contains('flag') && squares[i].classList.contains('bomb')) {
+            matches++
+        }
+        if (matches === bombAmount){
+            console.log('YOU WIN!')
+            isGameOver = true
+        }
+    }
+}
