@@ -86,6 +86,10 @@ document.addEventListener('DOMContentLoaded', () => {
             let total = square.getAttribute('bacon')
             if (total !=0) {
                 square.classList.add('checked')
+                if (total == 1) square.classList.add('one')
+                if (total == 2) square.classList.add('two')
+                if (total == 3) square.classList.add('three')
+                if (total == 4) square.classList.add('four')
                 square.innerHTML = total
                 return
             }
@@ -100,8 +104,8 @@ document.addEventListener('DOMContentLoaded', () => {
 //check neighboring squares once square is clicked
 function checkSquare(square, currentId) {
     const isLeftEdge = (currentId % width === 0)
-    const isRightEdge = (currentId % width === width - 1)
-    //let bombSquare = square.classList.contains("bomb")
+    const isRightEdge = (currentId % width === width -1)
+    
 
     setTimeout (() => {
         if(currentId > 0 && !isLeftEdge) {
@@ -125,7 +129,7 @@ function checkSquare(square, currentId) {
             click(newSquare)
         }
         if(currentId < 98 && !isRightEdge) {
-            const newId = squares[parseInt(currentId) + 1].id
+            const newId = squares[parseInt(currentId) +1].id
             const newSquare = document.getElementById(newId)
             click(newSquare)
         }
@@ -146,25 +150,22 @@ function checkSquare(square, currentId) {
         }
 
     }, 10)
-
-}
+    }
 
 //game over
 function gameOver(square){
     alert('Game Over!')
     isGameOver = true
-}
+
 
 //show ALL the bombs
 squares.forEach(square => {
     if(square.classList.contains('bomb')) {
-        square.innerHTML = 'Q'
+        square.innerHTML = '💣'
     }
 })
 
-
-//}
-})
+}
 
 //check for win
 function checkForWin() {
@@ -181,4 +182,4 @@ function checkForWin() {
     }
 
 }
-//})
+})
