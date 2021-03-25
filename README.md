@@ -1,3 +1,3 @@
 # minesweeperJS
 
-Using Ania Kubow's JavaScript template
+Minesweeper design practice using Ania Kubow's JavaScript template
