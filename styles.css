@@ -24,7 +24,7 @@ h1 {
 }
 
 .checked {
-    background-color: red;
+    background-color: black;
     color: cyan;
     font-family: Impact, 'Arial Narrow Bold', sans-serif;
     font-size: 16px;
@@ -38,7 +38,7 @@ h1 {
 }
 
 .bomb {
-    background-color: orange;
+    background-color: grey;
     border: 5px solid;
     box-sizing: border-box;
 }
