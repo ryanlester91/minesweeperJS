@@ -6,17 +6,29 @@ document.addEventListener('DOMContentLoaded', () => {
     let squares = []
     let isGameOver = false
 
+   
+
     //create Board
     function createBoard() {
         //get shuffled game array with random bombs
         const bombsArray = Array(bombAmount).fill('bomb')
         const emptyArray = Array(width*width - bombAmount).fill('valid')
         const gameArray = emptyArray.concat(bombsArray)
+        //Someone recommends not to do how Ania does shuffledArray sorting
         const shuffledArray = gameArray.sort( () => Math.random() - 0.5)
-
+        //Attempting Fisher-Yates algorithm. How do I incorporate this
+        //into an added class to var "square"?
+        /*function shuffledArray(gameArray)  {
+            for (let i = gameArray.length - 1; i > 0; i--) {
+                let j = Math.floor(Math.random() * (i + 1));
+                [gameArray[i], gameArray[j]] = [gameArray[j], gameArray[i]];
+              }
+            }*/
+           
         for(let i = 0; i < width*width; i++) {
             const square = document.createElement('div') 
             square.setAttribute('id', i)
+            //square.id = i
             square.classList.add(shuffledArray[i])
             grid.appendChild(square)
             squares.push(square)
@@ -49,13 +61,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 if(i > 90 && squares[i -1 +width].classList.contains('bomb')) total ++
                 if(i > 89 && !isRightEdge && squares[i +1 +width].classList.contains('bomb')) total ++
                 if(i > 80 && squares[i +width].classList.contains('bomb')) total ++
-                squares[i].setAttribute('bacon', total)
+                squares[i].setAttribute('data', total)
                 console.log(squares[i])
             }
         }
     }
 
-    createBoard();
+    createBoard()
 
     //add flag with right click
     function addFlag(square) {
@@ -83,7 +95,8 @@ document.addEventListener('DOMContentLoaded', () => {
             alert('Blown the FUCK UP')
             gameOver(square)
         } else {
-            let total = square.getAttribute('bacon')
+            let total = square.getAttribute('data')
+            //this is how code figures out how many bombs are adjacent to a square (1-4 or 0)
             if (total !=0) {
                 square.classList.add('checked')
                 if (total == 1) square.classList.add('one')
@@ -93,6 +106,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 square.innerHTML = total
                 return
             }
+        
             checkSquare(square, currentId)
             
         }
@@ -102,54 +116,70 @@ document.addEventListener('DOMContentLoaded', () => {
     
 
 //check neighboring squares once square is clicked
-function checkSquare(square, currentId) {
+function checkSquare(square, currentId, total) {
     const isLeftEdge = (currentId % width === 0)
     const isRightEdge = (currentId % width === width -1)
     
-
     setTimeout (() => {
         if(currentId > 0 && !isLeftEdge) {
             const newId = squares[parseInt(currentId) -1].id
             const newSquare = document.getElementById(newId)
-            click(newSquare)
+            if(total = '' || square.classList.contains('valid')) {
+                click(newSquare)
+                }
         }
         if(currentId > 9 && !isRightEdge) {
             const newId = squares[parseInt(currentId) +1 -width].id
             const newSquare = document.getElementById(newId)
-            click(newSquare)
+            if(total = '' || !square.classList.contains('valid')) {
+                click(newSquare)
+                }
         }
         if(currentId > 10) {
             const newId = squares[parseInt(currentId) -width].id
             const newSquare = document.getElementById(newId)
-            click(newSquare)
+            if(total = '' || !square.classList.contains('valid')) {
+                click(newSquare)
+                }
         }
         if(currentId > 11 && !isLeftEdge) {
             const newId = squares[parseInt(currentId) -1 -width].id
             const newSquare = document.getElementById(newId)
-            click(newSquare)
+            if(total = '' || !square.classList.contains('valid')) {
+                click(newSquare)
+                }
         }
         if(currentId < 98 && !isRightEdge) {
             const newId = squares[parseInt(currentId) +1].id
             const newSquare = document.getElementById(newId)
-            click(newSquare)
+            if(total = '' || !square.classList.contains('valid')) {
+                click(newSquare)
+                }
         }
         if(currentId < 90 && !isLeftEdge) {
             const newId = squares[parseInt(currentId) -1 +width].id
             const newSquare = document.getElementById(newId)
-            click(newSquare)
+            if(total = '' || !square.classList.contains('valid')) {
+                click(newSquare)
+                }
         }
         if(currentId < 88 && !isRightEdge) {
             const newId = squares[parseInt(currentId) +1 +width].id
             const newSquare = document.getElementById(newId)
-            click(newSquare)
+            if(total = '' || !square.classList.contains('valid')) {
+                click(newSquare)
+                }
         }
         if(currentId < 89) {
             const newId = squares[parseInt(currentId) +width].id
             const newSquare = document.getElementById(newId)
-            click(newSquare)
+            if(total = '' || !square.classList.contains('valid')) {
+                click(newSquare)
+                }
         }
 
     }, 10)
+    
     }
 
 //game over
@@ -176,10 +206,24 @@ function checkForWin() {
             matches++
         }
         if (matches === bombAmount){
+            alert('YOU WIN!')
             console.log('YOU WIN!')
             isGameOver = true
         }
     }
 
 }
+
 })
+
+/*var Time = 0;
+var Countdown = setInterval(function(){
+
+  ++Time;
+  document.getElementById("timer").innerHTML - Time;
+
+  if(Time >=10) {
+      Time + 10;
+  }
+
+})*/
