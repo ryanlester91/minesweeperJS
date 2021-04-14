@@ -121,6 +121,7 @@ function checkSquare(square, currentId, total) {
     const isRightEdge = (currentId % width === width -1)
     
     setTimeout (() => {
+        
         if(currentId > 0 && !isLeftEdge) {
             const newId = squares[parseInt(currentId) -1].id
             const newSquare = document.getElementById(newId)
@@ -214,16 +215,7 @@ function checkForWin() {
 
 }
 
+    
+
 })
 
-/*var Time = 0;
-var Countdown = setInterval(function(){
-
-  ++Time;
-  document.getElementById("timer").innerHTML - Time;
-
-  if(Time >=10) {
-      Time + 10;
-  }
-
-})*/
